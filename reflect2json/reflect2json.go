@@ -20,11 +20,13 @@ func makeMembers(members map[string]ReflectJSON) map[string]ReflectJSON {
 	return members
 }
 
+var ptrList map[reflect.Value]bool = make(map[reflect.Value]bool)
+
 func Create(value reflect.Value) (rj ReflectJSON) {
 	defer func(){
 		err := recover()
 		if err != nil {
-			fmt.Printf("in Create  err=%s\n, value=%v",err, value)
+			fmt.Printf("\nin Create  err=%s\n, value=%v",err, value)
 		}
 	}()
 	kind := value.Kind()
@@ -49,7 +51,16 @@ func Create(value reflect.Value) (rj ReflectJSON) {
 		typeOfV := value.Type()
 		rj.Type = typeOfV.String()
 		rj.Members = makeMembers(rj.Members)
-		member := Create(reflect.Indirect(value))
+		var member ReflectJSON
+
+		if check, ok := ptrList[value]; ok && check {
+			member = Create(reflect.ValueOf("cycle loop:" + fmt.Sprintf("%x",value.Pointer())))
+		} else {
+			ptrList[value] = true
+			member = Create(reflect.Indirect(value))
+			rj.Value =  fmt.Sprintf("%x",value.Pointer())
+		}
+
 		rj.Members["0"] = member
 	case reflect.Struct:
 		return reflectStruct(value)
@@ -65,7 +76,7 @@ func Create(value reflect.Value) (rj ReflectJSON) {
 	case reflect.Interface:
 		panic(value)
 	default:
-		fmt.Printf("default: kind = %s\n", kind.String())
+		//fmt.Printf("default: kind = %s\n", kind.String())
 		rj.Value = fmt.Sprintf("%v", value)
 	}
 
@@ -76,7 +87,7 @@ func reflectStruct(v reflect.Value) (rj ReflectJSON) {
 	defer func(){
 		err := recover()
 		if err != nil {
-			fmt.Printf("in reflectStruct  err=%s\n, value=%v",err, v)
+			fmt.Printf("\nin reflectStruct  err=%s\n, value=%v",err, v)
 		}
 	}()
 	rj.Members = makeMembers(rj.Members)
@@ -91,7 +102,13 @@ func reflectStruct(v reflect.Value) (rj ReflectJSON) {
 		switch field.Kind() {
 		case reflect.Ptr:
 			if !field.IsNil() {
-				field = reflect.Indirect(field)
+
+				if check, ok := ptrList[field]; ok && check {
+					field = reflect.ValueOf("cycle loop")
+				} else {
+					ptrList[field] = true
+					field = reflect.Indirect(field)
+				}
 			}
 
 			member = Create(field)
@@ -109,7 +126,7 @@ func reflectMap(v reflect.Value) (rj ReflectJSON) {
 	defer func(){
 		err := recover()
 		if err != nil {
-			fmt.Printf("in reflectMap  err=%s\n, value=%v",err, v)
+			fmt.Printf("\nin reflectMap  err=%s\n, value=%v",err, v)
 		}
 	}()
 
@@ -120,8 +137,10 @@ func reflectMap(v reflect.Value) (rj ReflectJSON) {
 
 	for i,key := range v.MapKeys() {
 		var member ReflectJSON
-		//field := v.MapIndex(key)
-		field := reflect.ValueOf(v.MapIndex(key).Interface())
+		field := v.MapIndex(key)
+		if field.Kind() == reflect.Interface {
+			field = reflect.ValueOf(  field.Interface())
+		}
 
 		switch field.Kind() {
 		//case reflect.Ptr:
