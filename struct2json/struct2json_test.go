@@ -3,8 +3,37 @@ package struct2json
 import (
 	"testing"
 	"fmt"
-	//"encoding/json"
 )
+
+
+func TestStructFieldisNil(t *testing.T) {
+
+	type SturctFieledNil struct{
+		ptr *SturctFieledNil
+		A string
+	}
+
+	testValue2 := SturctFieledNil{
+		A: "sampleB",
+		ptr: nil,
+	}
+
+	testValue := SturctFieledNil{
+		A: "sampleA",
+		ptr: &testValue2,
+	}
+	v := Create(testValue)
+	v = v.StMembers["0"]
+	if len(v.StMembers) != 3 {
+		t.Errorf("expect: 3, but: %d", len(v.StMembers))
+	}
+	if v.Type != "struct" {
+		t.Errorf("expect: struct but %s", v.Type)
+	}
+	if v.StMembers["Hell"].PrimValue != "hell?" {
+		t.Errorf("expect: hell? but %s", v.StMembers["Hell"].PrimValue)
+	}
+}
 
 
 type HogeHoge struct {

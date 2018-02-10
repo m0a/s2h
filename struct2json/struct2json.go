@@ -39,44 +39,44 @@ type Struct2json struct {
 
 
 
-func refrectStruct(v reflect.Value) Struct2json {
+func reflectStruct(v reflect.Value) (st Struct2json) {
+	fmt.Printf("\nin reflectStruct: %s, %s, %s\n", v.Kind().String(),v.Type().String(),v.String())
 
-	fieldName := ""
 	structName := ""
+	var currentField reflect.Value
 	defer func() {
 		err := recover()
 		if err != nil {
-			fmt.Printf("Recover! %s, FieldName:%s, StructName:%s \n" ,err, fieldName, structName)
+			fmt.Printf("in reflectStruct Recover! err=%s\n, StructName:%s ,FieldName:%s, \n v= %v" ,
+				err, structName, currentField.Kind().String(), v)
+			return
 		}
 	}()
-	st := Struct2json{
-		0,
-		"",
-		"",
-		nil,
-	}
 
 	kind := v.Kind()
 	structName = v.Type().String()
 	st.Type = kind.String()
 
 	t := v.Type()
-	fmt.Printf("in Struct\n %#v\n\n", v)
-
 	for i := 0; i < t.NumField(); i++ {
 		f := t.Field(i)
-		fieldName = f.Name
 		field := v.Field(i)
-
+		currentField = field
 
 		var member Struct2json
 
-		if  v.Field(i).CanInterface() {
+		switch field.Kind() {
+		case reflect.String:
 			member = Create(field.Interface())
-		} else {
-			member = Create(fmt.Sprintf("%s", field))
+		case reflect.Ptr:
+			member = Create(reflect.Indirect(field).Interface())
+		default:
+			if field.CanInterface() {
+				member = Create(field.Interface())
+			} else {
+				member = Create(fmt.Sprintf("%s", "unknown"))
+			}
 		}
-
 		member.Order = i
 
 		if st.StMembers == nil {
@@ -86,33 +86,29 @@ func refrectStruct(v reflect.Value) Struct2json {
 	}
 	return st
 }
-func Create(obj interface{}) Struct2json {
+func Create(obj interface{}) (st Struct2json) {
+	v := reflect.ValueOf(obj)
+	kind := v.Kind()
+	fmt.Printf("\nin Create: %s, %s, %s\n", v.Kind().String(),v.Type().String(),v.String())
+
 	//defer func() {
 	//	err := recover()
 	//	if err != nil {
-	//		fmt.Println("Recover!:", err)
+	//		fmt.Println("Create Recover!:", err)
+	//		fmt.Printf("in Recover!: %#v\n\n", kind.String())
 	//	}
+	//	return
 	//}()
 
-	st := Struct2json{
-		0,
-		"",
-		"",
-		nil,
-	}
 
-	v := reflect.ValueOf(obj)
-	kind := v.Kind()
 	st.Type = kind.String()
 
+
 	switch kind {
-	case reflect.Struct:
-		return refrectStruct(v)
 	case reflect.Array, reflect.Slice:
 		//fmt.Println("in Array")
 		for i := 0; i < v.Len(); i++ {
 
-			//fmt.Printf("%#v\n", Create(v.Index(i).Interface()))
 			member := Create(v.Index(i).Interface())
 			member.Order = i
 			if st.StMembers == nil {
@@ -121,21 +117,20 @@ func Create(obj interface{}) Struct2json {
 			st.StMembers[fmt.Sprintf("%d", i)] = member
 		}
 	case reflect.Ptr:
+		fmt.Printf("in ptr %s \n",v.Kind().String())
 		if st.StMembers == nil {
 			st.StMembers = make(map[string]Struct2json)
 		}
 
-		v = reflect.Indirect(v)
 		if v.CanInterface() {
-			fmt.Printf("%#v\n", v.Interface())
-			member := Create(v.Interface())
+			member := Create(reflect.Indirect(v).Interface())
 			st.StMembers["0"] = member
 		} else {
 			fmt.Printf("invalid: %#v\n", v)
 		}
-
+	case reflect.Struct:
+		return reflectStruct(v)
 	default:
-		//fmt.Println("in default")
 		st.PrimValue = fmt.Sprintf("%v", v)
 	}
 
