@@ -48,6 +48,8 @@ func Create(value reflect.Value) (rj ReflectJSON) {
 		rj.Members["0"] = member
 	case reflect.Struct:
 		return reflectStruct(value)
+	case reflect.Map:
+		return reflectMap(value)
 	case reflect.Invalid:
 		rj.Type = "nil"
 		rj.Value = "nil"
@@ -81,6 +83,24 @@ func reflectStruct(v reflect.Value) (rj ReflectJSON) {
 		member.Order = i
 		rj.Members = makeMembers(rj.Members)
 		rj.Members[f.Name] = member
+	}
+	return rj
+}
+
+func reflectMap(v reflect.Value) (rj ReflectJSON) {
+
+	t := v.Type()
+	rj.Type = t.String()
+	rj.Kind = v.Kind().String()
+
+
+	for i,key := range v.MapKeys() {
+		field := v.MapIndex(key)
+		var member ReflectJSON
+		member = Create(field)
+		member.Order = i
+		rj.Members = makeMembers(rj.Members)
+		rj.Members[key.String()] = member
 	}
 	return rj
 }

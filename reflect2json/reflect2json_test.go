@@ -75,6 +75,24 @@ type HogeHoge struct {
 }
 
 
+func TestMap(t *testing.T) {
+
+	myMap := map[string]int{
+		"abc":1,
+		"def":2,
+	}
+	v := Create(reflect.ValueOf(myMap))
+
+	//t.Logf("%#v", v)
+	//json, _ := json.Marshal(v)
+	//t.Logf("%v",string(json))
+
+	if v.Members["def"].Value != "2" {
+		t.Errorf("expect: 2 but %s", v.Members["def"].Value)
+	}
+
+}
+
 func TestNestStruct(t *testing.T) {
 
 	c:=	HogeHoge {
