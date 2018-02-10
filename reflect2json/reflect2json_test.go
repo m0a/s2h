@@ -4,36 +4,11 @@ import (
 	"testing"
 	"fmt"
 	"reflect"
+	"encoding/json"
 )
 
 
-func TestHowtoAccess(t *testing.T) {
 
-	type Some struct{
-		some string
-		A string
-		b int
-		c bool
-	}
-
-	S := Some{
-		A:"someA",
-		b:12,
-		c: true,
-		some: "something",
-	}
-
-	valueOfS := reflect.ValueOf(S)
-	typeOfS := reflect.TypeOf(S)
-
-	fmt.Printf("Type:%s,Kind:%s\n",typeOfS.Name() , typeOfS.Kind().String())
-	for i:=0; i< valueOfS.NumField(); i++ {
-		fieldName := typeOfS.Field(i).Name
-		value := valueOfS.Field(i).Interface()
-		fmt.Printf("%s: %s\n",fieldName, value)
-	}
-
-}
 
 
 func TestStructFieldisNil(t *testing.T) {
@@ -59,12 +34,6 @@ func TestStructFieldisNil(t *testing.T) {
 		t.Logf("%#v\n", v)
 		t.Errorf("expect: v.stMembers not nil, but: %v", v.Members)
 	}
-	//if v.Type != "struct" {
-	//	t.Errorf("expect: struct but %s", v.Type)
-	//}
-	//if v.StMembers["Hell"].PrimValue != "hell?" {
-	//	t.Errorf("expect: hell? but %s", v.StMembers["Hell"].PrimValue)
-	//}
 }
 
 
@@ -74,6 +43,25 @@ type HogeHoge struct {
 	A     interface{}
 }
 
+
+
+func TestNestMap(t *testing.T) {
+
+	myMap := map[string]interface{}{
+		"abc":1,
+		"def":map[string]int{"hij": 2, "lmn": 3},
+	}
+	v := Create(reflect.ValueOf(myMap))
+
+
+	if v.Members["def"].Members["lmn"].Value != "4" {
+		json, _ := json.Marshal(v)
+		t.Logf("%v",string(json))
+		t.Errorf("expect: 3 but %s", v.Members["def"].Members["lmn"].Value)
+
+	}
+
+}
 
 func TestMap(t *testing.T) {
 

@@ -24,11 +24,16 @@ func Create(value reflect.Value) (rj ReflectJSON) {
 	defer func(){
 		err := recover()
 		if err != nil {
-			fmt.Printf("in err  err=%s\n, value=%v",err, value)
+			fmt.Printf("in Create  err=%s\n, value=%v",err, value)
 		}
 	}()
 	kind := value.Kind()
 	rj.Kind = kind.String()
+
+	if kind == reflect.Interface {
+		value = reflect.ValueOf(value.Interface())
+		kind = value.Kind()
+	}
 
 	switch kind {
 	case reflect.Array, reflect.Slice:
@@ -50,10 +55,17 @@ func Create(value reflect.Value) (rj ReflectJSON) {
 		return reflectStruct(value)
 	case reflect.Map:
 		return reflectMap(value)
+	case reflect.String:
+		rj.Value = value.String()
+	case reflect.Bool:
+		rj.Value = fmt.Sprintf("%b",value.Bool())
 	case reflect.Invalid:
 		rj.Type = "nil"
 		rj.Value = "nil"
+	case reflect.Interface:
+		panic(value)
 	default:
+		fmt.Printf("default: kind = %s\n", kind.String())
 		rj.Value = fmt.Sprintf("%v", value)
 	}
 
@@ -61,7 +73,13 @@ func Create(value reflect.Value) (rj ReflectJSON) {
 }
 
 func reflectStruct(v reflect.Value) (rj ReflectJSON) {
-
+	defer func(){
+		err := recover()
+		if err != nil {
+			fmt.Printf("in reflectStruct  err=%s\n, value=%v",err, v)
+		}
+	}()
+	rj.Members = makeMembers(rj.Members)
 	t := v.Type()
 	rj.Type = t.String()
 	rj.Kind = v.Kind().String()
@@ -81,25 +99,42 @@ func reflectStruct(v reflect.Value) (rj ReflectJSON) {
 			member = Create(field)
 		}
 		member.Order = i
-		rj.Members = makeMembers(rj.Members)
+
 		rj.Members[f.Name] = member
 	}
 	return rj
 }
 
 func reflectMap(v reflect.Value) (rj ReflectJSON) {
+	defer func(){
+		err := recover()
+		if err != nil {
+			fmt.Printf("in reflectMap  err=%s\n, value=%v",err, v)
+		}
+	}()
 
 	t := v.Type()
 	rj.Type = t.String()
 	rj.Kind = v.Kind().String()
-
+	rj.Members = makeMembers(rj.Members)
 
 	for i,key := range v.MapKeys() {
-		field := v.MapIndex(key)
 		var member ReflectJSON
-		member = Create(field)
+		//field := v.MapIndex(key)
+		field := reflect.ValueOf(v.MapIndex(key).Interface())
+
+		switch field.Kind() {
+		//case reflect.Ptr:
+		//	if !field.IsNil() {
+		//		field = reflect.Indirect(field)
+		//	}
+		//
+		//	member = Create(field)
+		default:
+			member = Create(field)
+		}
+
 		member.Order = i
-		rj.Members = makeMembers(rj.Members)
 		rj.Members[key.String()] = member
 	}
 	return rj
