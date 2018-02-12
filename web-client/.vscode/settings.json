@@ -1,3 +1,23 @@
 {
-  "git.ignoreLimitWarning": true
+  "git.ignoreLimitWarning": true,
+  "gotoSymbolStack.currentStackPosition": 0,
+  "gotoSymbolStack.maxStackPosition": 2,
+  "gotoSymbolStack.filePositionInfo": [
+    {
+      "textFile": "/Users/m0a/go/src/github.com/m0a/s2h/web-client/index.tsx",
+      "viewColumn": 1,
+      "textPosition": {
+        "line": 63,
+        "character": 21
+      }
+    },
+    {
+      "textFile": "/Applications/Visual Studio Code - Insiders.app/Contents/Resources/app/extensions/node_modules/typescript/lib/lib.d.ts",
+      "viewColumn": 1,
+      "textPosition": {
+        "line": 961,
+        "character": 31
+      }
+    }
+  ]
 }

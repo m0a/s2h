@@ -22,14 +22,17 @@ const simpleValue = (data: GoReflect): string => {
   switch (data.kind) {
     case "struct":
       return data.type || "";
+    case "bool":
+    case "int":
     case "string":
-      return data.value || "";
+      return data.value || '""';
     case "slice":
     case "map":
       return data.fields
         ? `fields.length = ${Object.keys(data.fields).length}`
         : "field nothing";
     case "ptr":
+    case "interface":
       return data.fields ? simpleValue(data.fields["0"]) : "field nothing";
     default:
       return data.kind;
@@ -78,10 +81,7 @@ const ReflectDefaultView = (props: ReflectViewProps) => {
           JSON.stringify(Object.keys(viewData.fields), undefined, " ")}
       </p>
       <p>loc: {props.location.pathname}</p>
-      {/* <p>prev: {props.location.previous}</p> */}
       <p> kind:{viewData.kind}</p>
-      {/* <p> value:{viewData.value && viewData.value}</p> */}
-      {/* <p> ptr/kind:{viewData.fields && viewData.fields["0"].kind}</p> */}
       <pre>{JSON.stringify(viewData, undefined, " ")}</pre>
     </div>
   );

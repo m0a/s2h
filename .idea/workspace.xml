@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2ae89301-3bd3-4302-967c-d990e187a3b5" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/web-client/goreflect.ts" afterPath="$PROJECT_DIR$/web-client/goreflect.ts" />
-      <change beforePath="$PROJECT_DIR$/web-client/index.tsx" afterPath="$PROJECT_DIR$/web-client/index.tsx" />
-      <change beforePath="$PROJECT_DIR$/web-client/mytypes/@hyperapp/router.d.ts" afterPath="$PROJECT_DIR$/web-client/mytypes/@hyperapp/router.d.ts" />
-    </list>
+    <list default="true" id="2ae89301-3bd3-4302-967c-d990e187a3b5" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,8 +14,8 @@
       <file leaf-file-name="reflect2json.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/reflect2json/reflect2json.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="27" column="23" lean-forward="true" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
+            <state relative-caret-position="306">
+              <caret line="20" column="1" lean-forward="false" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -28,10 +24,10 @@
       <file leaf-file-name="index.tsx" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web-client/index.tsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="10" column="15" lean-forward="false" selection-start-line="10" selection-start-column="15" selection-end-line="10" selection-end-column="15" />
+            <state relative-caret-position="216">
+              <caret line="12" column="15" lean-forward="false" selection-start-line="12" selection-start-column="15" selection-end-line="12" selection-end-column="15" />
               <folding>
-                <marker date="1518427583000" expanded="true" signature="7:34" ph="..." />
+                <marker date="1518435742000" expanded="true" signature="7:34" ph="..." />
               </folding>
             </state>
           </provider>
@@ -112,8 +108,8 @@
     <handled-path value="$PROJECT_DIR$/web-client/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-127" />
-    <option name="y" value="-1192" />
+    <option name="x" value="-284" />
+    <option name="y" value="-1159" />
     <option name="width" value="2441" />
     <option name="height" value="1023" />
   </component>
@@ -312,7 +308,7 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-127" y="-1192" width="2441" height="1023" extended-state="0" />
+    <frame x="-284" y="-1159" width="2441" height="1023" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -620,10 +616,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/web-client/index.tsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="10" column="15" lean-forward="false" selection-start-line="10" selection-start-column="15" selection-end-line="10" selection-end-column="15" />
+        <state relative-caret-position="216">
+          <caret line="12" column="15" lean-forward="false" selection-start-line="12" selection-start-column="15" selection-end-line="12" selection-end-column="15" />
           <folding>
-            <marker date="1518427583000" expanded="true" signature="7:34" ph="..." />
+            <marker date="1518435742000" expanded="true" signature="7:34" ph="..." />
           </folding>
         </state>
       </provider>
@@ -646,8 +642,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/reflect2json/reflect2json.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="27" column="23" lean-forward="true" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
+        <state relative-caret-position="306">
+          <caret line="20" column="1" lean-forward="false" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
           <folding />
         </state>
       </provider>
