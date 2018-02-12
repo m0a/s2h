@@ -3,26 +3,38 @@ package reflect2json
 import (
 	"reflect"
 	"fmt"
+	"encoding/json"
 )
 
-type ReflectJSON struct {
+type reflectJSON struct {
 	Order  int                    `json:"order"`
 	Type   string                 `json:"type,omitempty"`
 	Kind   string                 `json:"kind"`
 	Value  string                 `json:"value,omitempty"`
-	Fields map[string]ReflectJSON `json:"fields,omitempty"`
+	Fields map[string]reflectJSON `json:"fields,omitempty"`
 }
 
-func makeFields(members map[string]ReflectJSON) map[string]ReflectJSON {
+// main routines
+func Reflect2JSON(value interface{}) string {
+	rj := walk(reflect.ValueOf(value))
+	bytes, err := json.Marshal(rj)
+	if err != nil {
+		return  ""
+	}
+	return  string(bytes)
+}
+
+
+func makeFields(members map[string]reflectJSON) map[string]reflectJSON {
 	if members == nil {
-		return make(map[string]ReflectJSON)
+		return make(map[string]reflectJSON)
 	}
 	return members
 }
 
 var ptrList map[reflect.Value]bool = make(map[reflect.Value]bool)
 
-func panicRecover(rj *ReflectJSON)  {
+func panicRecover(rj *reflectJSON)  {
 	if err := recover(); err != nil {
 		fmt.Errorf("\npanicRecover err=%s\n", err)
 		rj.Kind = reflect.Invalid.String()
@@ -40,7 +52,9 @@ func panicRecover(rj *ReflectJSON)  {
 	}
 }
 
-func Create(value reflect.Value) (rj ReflectJSON) {
+
+
+func walk(value reflect.Value) (rj reflectJSON) {
 
 	defer panicRecover(&rj)
 
@@ -57,7 +71,7 @@ func Create(value reflect.Value) (rj ReflectJSON) {
 		typeOfV := value.Type()
 		rj.Type = typeOfV.String()
 		for i := 0; i < value.Len(); i++ {
-			member := Create(value.Index(i))
+			member := walk(value.Index(i))
 			member.Order = i
 			rj.Fields = makeFields(rj.Fields)
 			rj.Fields[fmt.Sprintf("%d", i)] = member
@@ -66,13 +80,13 @@ func Create(value reflect.Value) (rj ReflectJSON) {
 		typeOfV := value.Type()
 		rj.Type = typeOfV.String()
 		rj.Fields = makeFields(rj.Fields)
-		var member ReflectJSON
+		var member reflectJSON
 		if check, ok := ptrList[value]; ok && check {
-			member = Create(reflect.ValueOf("cycle loop:" + fmt.Sprintf("%x", value.Pointer())))
+			member = walk(reflect.ValueOf("cycle loop:" + fmt.Sprintf("%x", value.Pointer())))
 		} else {
 			ptrList[value] = true
 
-			member = Create(reflect.Indirect(value))
+			member = walk(reflect.Indirect(value))
 			rj.Value = fmt.Sprintf("%x", value.Pointer())
 		}
 
@@ -95,7 +109,7 @@ func Create(value reflect.Value) (rj ReflectJSON) {
 	return rj
 }
 
-func reflectStruct(v reflect.Value) (rj ReflectJSON) {
+func reflectStruct(v reflect.Value) (rj reflectJSON) {
 	defer panicRecover(&rj)
 
 	rj.Fields = makeFields(rj.Fields)
@@ -105,7 +119,7 @@ func reflectStruct(v reflect.Value) (rj ReflectJSON) {
 	for i := 0; i < t.NumField(); i++ {
 		f := t.Field(i)
 		field := v.Field(i)
-		var member ReflectJSON
+		var member reflectJSON
 
 		switch field.Kind() {
 		case reflect.Ptr:
@@ -119,9 +133,9 @@ func reflectStruct(v reflect.Value) (rj ReflectJSON) {
 				}
 			}
 
-			member = Create(field)
+			member = walk(field)
 		default:
-			member = Create(field)
+			member = walk(field)
 		}
 		member.Order = i
 
@@ -130,7 +144,7 @@ func reflectStruct(v reflect.Value) (rj ReflectJSON) {
 	return rj
 }
 
-func reflectMap(v reflect.Value) (rj ReflectJSON) {
+func reflectMap(v reflect.Value) (rj reflectJSON) {
 	defer panicRecover(&rj)
 
 
@@ -140,7 +154,7 @@ func reflectMap(v reflect.Value) (rj ReflectJSON) {
 	rj.Fields = makeFields(rj.Fields)
 
 	for i, key := range v.MapKeys() {
-		var member ReflectJSON
+		var member reflectJSON
 		field := v.MapIndex(key)
 		if field.Kind() == reflect.Interface {
 			field = reflect.ValueOf(field.Interface())
@@ -152,9 +166,9 @@ func reflectMap(v reflect.Value) (rj ReflectJSON) {
 		//		field = reflect.Indirect(field)
 		//	}
 		//
-		//	member = Create(field)
+		//	member = walk(field)
 		default:
-			member = Create(field)
+			member = walk(field)
 		}
 
 		member.Order = i

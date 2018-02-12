@@ -24,7 +24,7 @@ func TestStructFieldisNil(t *testing.T) {
 		A: "sampleA",
 		xxx: &testValue2,
 	}
-	v := Create(reflect.ValueOf(testValue))
+	v := walk(reflect.ValueOf(testValue))
 	v = v.Fields["0"]
 
 	if len(v.Fields) != 0 {
@@ -48,7 +48,7 @@ func TestNestMap(t *testing.T) {
 		"abc":1,
 		"def":map[string]int{"hij": 2, "lmn": 3},
 	}
-	v := Create(reflect.ValueOf(myMap))
+	v := walk(reflect.ValueOf(myMap))
 
 
 	if v.Fields["def"].Fields["lmn"].Value != "3" {
@@ -66,7 +66,7 @@ func TestMap(t *testing.T) {
 		"abc":1,
 		"def":2,
 	}
-	v := Create(reflect.ValueOf(myMap))
+	v := walk(reflect.ValueOf(myMap))
 
 	//t.Logf("%#v", v)
 	//json, _ := json.Marshal(v)
@@ -90,7 +90,7 @@ func TestNestStruct(t *testing.T) {
 		A: &c,
 	}
 
-	v := Create(reflect.ValueOf(myValue))
+	v := walk(reflect.ValueOf(myValue))
 	v = v.Fields["0"]
 	if len(v.Fields) != 3 {
 		t.Errorf("expect: 3, but: %d", len(v.Fields))
@@ -110,7 +110,7 @@ func TestPtrValue(t *testing.T) {
 		"c",
 	}
 
-	v := Create(reflect.ValueOf(myValue))
+	v := walk(reflect.ValueOf(myValue))
 	v = v.Fields["0"]
 	if len(v.Fields) != 3 {
 		t.Errorf("expect: 3, but: %d", len(v.Fields))
@@ -132,7 +132,7 @@ func TestStructValue(t *testing.T) {
 		"c",
 	}
 
-	v := Create(reflect.ValueOf(myValue))
+	v := walk(reflect.ValueOf(myValue))
 	//t.Logf("%#v", v)
 	//json, _ := json.Marshal(v)
 	//t.Logf("%v", string(json))
@@ -154,7 +154,7 @@ func TestArrayValue(t *testing.T) {
 		"a","b","c",
 	}
 
-	v := Create(reflect.ValueOf(myValue))
+	v := walk(reflect.ValueOf(myValue))
 	if len(v.Fields) != 3 {
 		t.Errorf("expect: 3, but: %d", len(v.Fields))
 	}
@@ -172,7 +172,7 @@ func TestArrayValue(t *testing.T) {
 
 func TestStringValue(t *testing.T) {
 	myValue := "something"
-	v := Create(reflect.ValueOf(myValue))
+	v := walk(reflect.ValueOf(myValue))
 	expect :=`{0  string something map[]}`
 	result := fmt.Sprintf("%v", v)
 	if result != expect {
@@ -183,7 +183,7 @@ func TestStringValue(t *testing.T) {
 
 func TestIntValue(t *testing.T) {
 	myValue := 2
-	v := Create(reflect.ValueOf(myValue))
+	v := walk(reflect.ValueOf(myValue))
 	expect :=`{0  int 2 map[]}`
 	result := fmt.Sprintf("%v", v)
 	if result != expect {
