@@ -6,11 +6,11 @@ import (
 )
 
 type ReflectJSON struct {
-	Order   int                    `json:"order"`
-	Type    string                 `json:"type,omitempty"`
-	Kind    string                 `json:"kind"`
-	Value   string                 `json:"value,omitempty"`
-	Members map[string]ReflectJSON `json:"members,omitempty"`
+	Order  int                    `json:"order"`
+	Type   string                 `json:"type,omitempty"`
+	Kind   string                 `json:"kind"`
+	Value  string                 `json:"value,omitempty"`
+	Fields map[string]ReflectJSON `json:"fileds,omitempty"`
 }
 
 func makeMembers(members map[string]ReflectJSON) map[string]ReflectJSON {
@@ -23,10 +23,10 @@ func makeMembers(members map[string]ReflectJSON) map[string]ReflectJSON {
 var ptrList map[reflect.Value]bool = make(map[reflect.Value]bool)
 
 func Create(value reflect.Value) (rj ReflectJSON) {
-	defer func(){
+	defer func() {
 		err := recover()
 		if err != nil {
-			fmt.Printf("\nin Create  err=%s\n, value=%v",err, value)
+			fmt.Printf("\nin Create  err=%s\n, value=%v", err, value)
 		}
 	}()
 	kind := value.Kind()
@@ -44,24 +44,24 @@ func Create(value reflect.Value) (rj ReflectJSON) {
 		for i := 0; i < value.Len(); i++ {
 			member := Create(value.Index(i))
 			member.Order = i
-			rj.Members = makeMembers(rj.Members)
-			rj.Members[fmt.Sprintf("%d", i)] = member
+			rj.Fields = makeMembers(rj.Fields)
+			rj.Fields[fmt.Sprintf("%d", i)] = member
 		}
 	case reflect.Ptr:
 		typeOfV := value.Type()
 		rj.Type = typeOfV.String()
-		rj.Members = makeMembers(rj.Members)
+		rj.Fields = makeMembers(rj.Fields)
 		var member ReflectJSON
-
 		if check, ok := ptrList[value]; ok && check {
-			member = Create(reflect.ValueOf("cycle loop:" + fmt.Sprintf("%x",value.Pointer())))
+			member = Create(reflect.ValueOf("cycle loop:" + fmt.Sprintf("%x", value.Pointer())))
 		} else {
 			ptrList[value] = true
+
 			member = Create(reflect.Indirect(value))
-			rj.Value =  fmt.Sprintf("%x",value.Pointer())
+			rj.Value = fmt.Sprintf("%x", value.Pointer())
 		}
 
-		rj.Members["0"] = member
+		rj.Fields["0"] = member
 	case reflect.Struct:
 		return reflectStruct(value)
 	case reflect.Map:
@@ -69,7 +69,7 @@ func Create(value reflect.Value) (rj ReflectJSON) {
 	case reflect.String:
 		rj.Value = value.String()
 	case reflect.Bool:
-		rj.Value = fmt.Sprintf("%b",value.Bool())
+		rj.Value = fmt.Sprintf("%b", value.Bool())
 	case reflect.Invalid:
 		rj.Type = "nil"
 		rj.Value = "nil"
@@ -84,13 +84,13 @@ func Create(value reflect.Value) (rj ReflectJSON) {
 }
 
 func reflectStruct(v reflect.Value) (rj ReflectJSON) {
-	defer func(){
+	defer func() {
 		err := recover()
 		if err != nil {
-			fmt.Printf("\nin reflectStruct  err=%s\n, value=%v",err, v)
+			fmt.Printf("\nin reflectStruct  err=%s\n, value=%v", err, v)
 		}
 	}()
-	rj.Members = makeMembers(rj.Members)
+	rj.Fields = makeMembers(rj.Fields)
 	t := v.Type()
 	rj.Type = t.String()
 	rj.Kind = v.Kind().String()
@@ -117,29 +117,29 @@ func reflectStruct(v reflect.Value) (rj ReflectJSON) {
 		}
 		member.Order = i
 
-		rj.Members[f.Name] = member
+		rj.Fields[f.Name] = member
 	}
 	return rj
 }
 
 func reflectMap(v reflect.Value) (rj ReflectJSON) {
-	defer func(){
+	defer func() {
 		err := recover()
 		if err != nil {
-			fmt.Printf("\nin reflectMap  err=%s\n, value=%v",err, v)
+			fmt.Printf("\nin reflectMap  err=%s\n, value=%v", err, v)
 		}
 	}()
 
 	t := v.Type()
 	rj.Type = t.String()
 	rj.Kind = v.Kind().String()
-	rj.Members = makeMembers(rj.Members)
+	rj.Fields = makeMembers(rj.Fields)
 
-	for i,key := range v.MapKeys() {
+	for i, key := range v.MapKeys() {
 		var member ReflectJSON
 		field := v.MapIndex(key)
 		if field.Kind() == reflect.Interface {
-			field = reflect.ValueOf(  field.Interface())
+			field = reflect.ValueOf(field.Interface())
 		}
 
 		switch field.Kind() {
@@ -154,7 +154,7 @@ func reflectMap(v reflect.Value) (rj ReflectJSON) {
 		}
 
 		member.Order = i
-		rj.Members[key.String()] = member
+		rj.Fields[key.String()] = member
 	}
 	return rj
 }

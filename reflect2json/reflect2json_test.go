@@ -8,9 +8,6 @@ import (
 )
 
 
-
-
-
 func TestStructFieldisNil(t *testing.T) {
 
 	type SturctFieledNil struct{
@@ -28,11 +25,11 @@ func TestStructFieldisNil(t *testing.T) {
 		xxx: &testValue2,
 	}
 	v := Create(reflect.ValueOf(testValue))
-	v = v.Members["0"]
+	v = v.Fields["0"]
 
-	if len(v.Members) != 0 {
+	if len(v.Fields) != 0 {
 		t.Logf("%#v\n", v)
-		t.Errorf("expect: v.stMembers not nil, but: %v", v.Members)
+		t.Errorf("expect: v.stMembers not nil, but: %v", v.Fields)
 	}
 }
 
@@ -54,10 +51,10 @@ func TestNestMap(t *testing.T) {
 	v := Create(reflect.ValueOf(myMap))
 
 
-	if v.Members["def"].Members["lmn"].Value != "4" {
+	if v.Fields["def"].Fields["lmn"].Value != "3" {
 		json, _ := json.Marshal(v)
 		t.Logf("%v",string(json))
-		t.Errorf("expect: 3 but %s", v.Members["def"].Members["lmn"].Value)
+		t.Errorf("expect: 3 but %s", v.Fields["def"].Fields["lmn"].Value)
 
 	}
 
@@ -75,8 +72,8 @@ func TestMap(t *testing.T) {
 	//json, _ := json.Marshal(v)
 	//t.Logf("%v",string(json))
 
-	if v.Members["def"].Value != "2" {
-		t.Errorf("expect: 2 but %s", v.Members["def"].Value)
+	if v.Fields["def"].Value != "2" {
+		t.Errorf("expect: 2 but %s", v.Fields["def"].Value)
 	}
 
 }
@@ -94,15 +91,15 @@ func TestNestStruct(t *testing.T) {
 	}
 
 	v := Create(reflect.ValueOf(myValue))
-	v = v.Members["0"]
-	if len(v.Members) != 3 {
-		t.Errorf("expect: 3, but: %d", len(v.Members))
+	v = v.Fields["0"]
+	if len(v.Fields) != 3 {
+		t.Errorf("expect: 3, but: %d", len(v.Fields))
 	}
 	if v.Type != "reflect2json.HogeHoge" {
 		t.Errorf("expect: struct but %s", v.Type)
 	}
-	if v.Members["Hell"].Value != "hell?" {
-		t.Errorf("expect: hell? but %s", v.Members["Hell"].Value)
+	if v.Fields["Hell"].Value != "hell?" {
+		t.Errorf("expect: hell? but %s", v.Fields["Hell"].Value)
 	}
 }
 
@@ -114,15 +111,15 @@ func TestPtrValue(t *testing.T) {
 	}
 
 	v := Create(reflect.ValueOf(myValue))
-	v = v.Members["0"]
-	if len(v.Members) != 3 {
-		t.Errorf("expect: 3, but: %d", len(v.Members))
+	v = v.Fields["0"]
+	if len(v.Fields) != 3 {
+		t.Errorf("expect: 3, but: %d", len(v.Fields))
 	}
 	if v.Type != "reflect2json.HogeHoge" {
 		t.Errorf("expect: struct but %s", v.Type)
 	}
-	if v.Members["Hell"].Value != "hell?" {
-		t.Errorf("expect: hell? but %s", v.Members["Hell"].Value)
+	if v.Fields["Hell"].Value != "hell?" {
+		t.Errorf("expect: hell? but %s", v.Fields["Hell"].Value)
 	}
 }
 
@@ -139,15 +136,15 @@ func TestStructValue(t *testing.T) {
 	//t.Logf("%#v", v)
 	//json, _ := json.Marshal(v)
 	//t.Logf("%v", string(json))
-	if len(v.Members) != 3 {
-		t.Errorf("expect: 3, but: %d", len(v.Members))
+	if len(v.Fields) != 3 {
+		t.Errorf("expect: 3, but: %d", len(v.Fields))
 	}
 	if v.Type != "reflect2json.HogeHoge" {
 		t.Logf("%#v\n", v)
 		t.Errorf("expect: reflect2json.HogeHoge but %s", v.Type)
 	}
-	if v.Members["Hell"].Value != "hell?" {
-		t.Errorf("expect: hell? but %s", v.Members["Hell"].Members)
+	if v.Fields["Hell"].Value != "hell?" {
+		t.Errorf("expect: hell? but %s", v.Fields["Hell"].Fields)
 	}
 }
 
@@ -158,16 +155,16 @@ func TestArrayValue(t *testing.T) {
 	}
 
 	v := Create(reflect.ValueOf(myValue))
-	if len(v.Members) != 3 {
-		t.Errorf("expect: 3, but: %d", len(v.Members))
+	if len(v.Fields) != 3 {
+		t.Errorf("expect: 3, but: %d", len(v.Fields))
 	}
 	if v.Type != "[3]string" {
 		t.Logf("%#v\n", v)
 		t.Errorf("expect: array but %s", v.Type)
 	}
-	if v.Members["0"].Value != "a" {
-		t.Errorf("%#v", v.Members)
-		t.Errorf("expect: a but %s", v.Members["0"].Value)
+	if v.Fields["0"].Value != "a" {
+		t.Errorf("%#v", v.Fields)
+		t.Errorf("expect: a but %s", v.Fields["0"].Value)
 
 	}
 }
@@ -176,8 +173,8 @@ func TestArrayValue(t *testing.T) {
 func TestStringValue(t *testing.T) {
 	myValue := "something"
 	v := Create(reflect.ValueOf(myValue))
-	expect :=`reflect2json.ReflectJSON{Order:0, Type:"string", Value:"something", Members:map[string]reflect2json.ReflectJSON(nil)}`
-	result := fmt.Sprintf("%#v", v)
+	expect :=`{0  string something map[]}`
+	result := fmt.Sprintf("%v", v)
 	if result != expect {
 		t.Errorf ("expect: \n\t%v\n but: \n\t%s\n", expect, result)
 	}
@@ -187,8 +184,8 @@ func TestStringValue(t *testing.T) {
 func TestIntValue(t *testing.T) {
 	myValue := 2
 	v := Create(reflect.ValueOf(myValue))
-	expect :=`reflect2json.ReflectJSON{Order:0, Type:"int", Value:"2", Members:map[string]reflect2json.ReflectJSON(nil)}`
-	result := fmt.Sprintf("%#v", v)
+	expect :=`{0  int 2 map[]}`
+	result := fmt.Sprintf("%v", v)
 	if result != expect {
 		t.Errorf ("expect: \n\t%v\n but: \n\t%s\n", expect, result)
 	}
