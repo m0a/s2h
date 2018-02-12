@@ -1,8 +1,6 @@
-# pp [![wercker status](https://app.wercker.com/status/6934c847631da2cf672e559f927a90b2/s "wercker status")](https://app.wercker.com/project/bykey/6934c847631da2cf672e559f927a90b2)
-
 struct2html for Go language
 
-![](http://i.gyazo.com/d3253ae839913b7239a7229caa4af551.png)
+![]()
 
 ## Usage
 
