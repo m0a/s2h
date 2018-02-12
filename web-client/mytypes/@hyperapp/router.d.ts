@@ -22,10 +22,10 @@ interface RenderProps<P> {
 interface RouteProps {
   parent?: boolean;
   path: string;
-  render: (props: RenderProps<any>) => VNode<any>;
+  render: (props: RenderProps<any>) => VNode<object>;
 }
 
-export function Route(props: RouteProps): any;
+export function Route(props: RouteProps): VNode<object>;
 /**Switch */
 export function Switch(props: any, children: VNode<any>): VNode<any>;
 

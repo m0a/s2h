@@ -1,97 +1,111 @@
-import { app, h, ActionsType, View } from "hyperapp";
+import { app, h, ActionsType, View, VNode } from "hyperapp";
 import {
   Link,
   location,
   LocationState,
   LocationActions,
   RenderProps,
-  Route
+  RouteProps,
+  Route,
+  Match
 } from "@hyperapp/router";
 
-import GoReflect from "./goreflect";
+import GoReflect, { GoReflectKind } from "./goreflect";
 
 const json = (window as any).testJSON as GoReflect;
 
-interface ReflectViewProps {
-  location: LocationState;
-  reflect: GoReflect;
-}
-
-const ReflectPTRView = (props: RenderProps<{ id: string }>) => (
-  <div>
-    <p>ptr:{json.value && json.value}</p>
-    <pre>{json.fields["0"].kind}</pre>
-    <Link to={`${props.location.pathname}0`}>
-      link: {`${props.location.pathname}0`}
-    </Link>
-  </div>
-);
-
-const ReflectDefaultView = (props: RenderProps<{ id: string }>) => (
+const ReflectPTRView = (props: ReflectViewProps) => (
   <div>
     <p>loc: {props.location.pathname}</p>
-    <p>prev: {props.location.previous}</p>
-    <p> kind:{json.kind}</p>
-    <p> value:{json.value && json.value}</p>
-    <p> ptr/kind:{json.fields && json.fields["0"].kind}</p>
-    <pre>{JSON.stringify(json.fields["0"], undefined, " ")}</pre>
+    <Link to={`props.location.`}>ptr:{props.viewData.value}</Link>
+    <pre>{JSON.stringify(props.viewData, undefined, " ")}</pre>
+    <p>
+      fileds:{props.viewData.fields &&
+        JSON.stringify(Object.keys(props.viewData.fields), undefined, " ")}
+    </p>
   </div>
 );
 
-const ReflectView = (props: RenderProps<any>) => {
-  switch (json.kind) {
-    // case "ptr":
-    //   return <ReflectPTRView {...props} />;
+const NotFound = () => <h1>Not Found</h1>;
+
+const ReflectDefaultView = (props: ReflectViewProps) => {
+  const { viewData } = props;
+  return (
+    <div>
+      <p>params:{JSON.stringify(props.location.pathname)}</p>
+      <p>
+        fileds:{viewData.fields &&
+          JSON.stringify(Object.keys(viewData.fields), undefined, " ")}
+      </p>
+      <p>loc: {props.location.pathname}</p>
+      {/* <p>prev: {props.location.previous}</p> */}
+      <p> kind:{viewData.kind}</p>
+      {/* <p> value:{viewData.value && viewData.value}</p> */}
+      {/* <p> ptr/kind:{viewData.fields && viewData.fields["0"].kind}</p> */}
+      <pre>{JSON.stringify(viewData, undefined, " ")}</pre>
+    </div>
+  );
+};
+
+const SwicthReflectView = (props: ReflectViewProps) => {
+  const { viewData } = props;
+  switch (viewData.kind) {
+    case "ptr":
+      return <ReflectPTRView {...props} />;
     default:
       return <ReflectDefaultView {...props} />;
   }
-};
-
-const Home = () => <h2>Home</h2>;
-const About = () => <h2>About</h2>;
-const Topic = ({ match }: { match: any }) => <h3>{match.params.topicId}</h3>;
-const TopicsView = ({ match }: { match: any }) => (
-  <div>
-    <h2>Topics</h2>
-    <ul>
-      <li>
-        <Link to={`${match.url}/components`}>Components</Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/single-state-tree`}>Single State Tree</Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/routing`}>Routing</Link>
-      </li>
-    </ul>
-
-    {match.isExact && <h3>Please select a topic.</h3>}
-
-    <Route parent path={`${match.path}/:topicId`} render={Topic} />
-  </div>
-);
-
-interface RouteState {
-  location: LocationState;
-}
-const state: RouteState = {
-  location: location.state
 };
 
 interface RouteActions {
   location: LocationActions;
 }
 
+interface ReflectViewProps {
+  viewData: GoReflect;
+  location: LocationState;
+  match: Match<any>;
+}
+
+//これ自体は (props: RenderProps<any>) => VNode<object> を返す関数でいい
+const connectReflectJSON = (
+  Target: (_: ReflectViewProps) => VNode<object>
+): ((_: RenderProps<any>) => VNode<object>) => {
+  return (props: RenderProps<any>) => {
+    const list = props.location.pathname.split("/").filter(v => v != "");
+    let params = [...list];
+    let viewData = json;
+
+    while (params.length > 0) {
+      const path = params.shift();
+      if (path) {
+        if (viewData.fields[path] !== undefined) {
+          viewData = viewData.fields[path];
+        } else {
+          return <NotFound />;
+        }
+      } else {
+        return <NotFound />;
+      }
+    }
+    return <Target viewData={viewData} {...props} />;
+  };
+};
+
+const view: View<RouteState, RouteActions> = (state: RouteState) => (
+  <div>
+    <Route parent path="/" render={connectReflectJSON(SwicthReflectView)} />
+  </div>
+);
+interface RouteState {
+  location: LocationState;
+}
+const state: RouteState = {
+  location: location.state
+};
 const routeActions: ActionsType<RouteState, RouteActions> = {
   location: location.actions
 };
-const view: View<RouteState, RouteActions> = (state: RouteState) => (
-  <div>
-    <Route parent path="/" render={ReflectView} />
-    <Route path="/about" render={About} />
-  </div>
-);
-
 const main = app(state, routeActions, view, document.body);
 
 const unsubscribe = location.subscribe(main.location);
