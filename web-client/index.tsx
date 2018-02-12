@@ -10,18 +10,58 @@ import {
   Match
 } from "@hyperapp/router";
 
-import GoReflect, { GoReflectKind } from "./goreflect";
+import GoReflect, { GoReflectKind } from "goreflect";
 
 const json = (window as any).testJSON as GoReflect;
 
-const ReflectPTRView = (props: ReflectViewProps) => (
+const nextURL = (location: string, next: string) => {
+  return `${location !== "/" ? location : ""}/${next}`;
+};
+
+const simpleValue = (data: GoReflect): string => {
+  switch (data.kind) {
+    case "struct":
+      return data.type || "";
+    case "string":
+      return data.value || "";
+    case "slice":
+    case "map":
+      return data.fields
+        ? `fields.length = ${Object.keys(data.fields).length}`
+        : "field nothing";
+    case "ptr":
+      return data.fields ? simpleValue(data.fields["0"]) : "field nothing";
+    default:
+      return data.kind;
+  }
+  return data.kind;
+};
+const ReflectStructView = ({ location, match, viewData }: ReflectViewProps) => {
+  const fields = Object.keys(viewData.fields);
+  return (
+    <div>
+      kind:struct
+      <p>type: {viewData.type}</p>
+      {fields.map(field => (
+        <p>
+          <Link
+            to={nextURL(location.pathname, field)}
+          >{`${field}: ${simpleValue(viewData.fields[field])}`}</Link>
+        </p>
+      ))}
+    </div>
+  );
+};
+
+const ReflectPTRView = ({ location, match, viewData }: ReflectViewProps) => (
   <div>
-    <p>loc: {props.location.pathname}</p>
-    <Link to={`props.location.`}>ptr:{props.viewData.value}</Link>
-    <pre>{JSON.stringify(props.viewData, undefined, " ")}</pre>
+    <p>loc: {location.pathname}</p>
+    <p>next:{`${nextURL(location.pathname, "0")}`}</p>
+    <Link to={nextURL(location.pathname, "0")}>ptr:{viewData.value}</Link>
+    <pre>{JSON.stringify(viewData, undefined, " ")}</pre>
     <p>
-      fileds:{props.viewData.fields &&
-        JSON.stringify(Object.keys(props.viewData.fields), undefined, " ")}
+      fileds:{viewData.fields &&
+        JSON.stringify(Object.keys(viewData.fields), undefined, " ")}
     </p>
   </div>
 );
@@ -50,6 +90,9 @@ const ReflectDefaultView = (props: ReflectViewProps) => {
 const SwicthReflectView = (props: ReflectViewProps) => {
   const { viewData } = props;
   switch (viewData.kind) {
+    case "map":
+    case "struct":
+      return <ReflectStructView {...props} />;
     case "ptr":
       return <ReflectPTRView {...props} />;
     default:
@@ -108,4 +151,6 @@ const routeActions: ActionsType<RouteState, RouteActions> = {
 };
 const main = app(state, routeActions, view, document.body);
 
-const unsubscribe = location.subscribe(main.location);
+if ((window as any).unsubscribe === undefined) {
+  (window as any).unsubscribe = location.subscribe(main.location);
+}

@@ -45,7 +45,7 @@ interface LocationActions {
 interface Location {
   state: LocationState;
   actions: LocationActions;
-  subscribe: (actions: LocationActions) => void;
+  subscribe: (actions: LocationActions) => Function;
 }
 
 export declare const location: Location;

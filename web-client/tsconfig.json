@@ -4,6 +4,7 @@
     "jsx": "react",
     "jsxFactory": "h",
     "baseUrl": ".",
+    "sourceMap": true,
     "paths": {
       "*": ["mytypes/*", "node_modules/@types/*", "*"]
     }
