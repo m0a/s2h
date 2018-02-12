@@ -4,6 +4,7 @@ import (
 	"reflect"
 	"fmt"
 	"encoding/json"
+	"os"
 )
 
 type reflectJSON struct {
@@ -36,7 +37,7 @@ var ptrList map[reflect.Value]bool = make(map[reflect.Value]bool)
 
 func panicRecover(rj *reflectJSON)  {
 	if err := recover(); err != nil {
-		fmt.Errorf("\npanicRecover err=%s\n", err)
+		fmt.Fprintf(os.Stderr,"\npanicRecover err=%s\n", err)
 		rj.Kind = reflect.Invalid.String()
 		switch err.(type) {
 		case string:
@@ -45,10 +46,7 @@ func panicRecover(rj *reflectJSON)  {
 			rj.Value = err.(error).Error()
 		default:
 			rj.Value = fmt.Sprintf("%v", err)
-
 		}
-	} else {
-		// fmt.Printf("\npanicRecover throuth\n")
 	}
 }
 
@@ -60,6 +58,7 @@ func walk(value reflect.Value) (rj reflectJSON) {
 
 	kind := value.Kind()
 	rj.Kind = kind.String()
+	rj.Fields = makeFields(rj.Fields)
 
 	if kind == reflect.Interface {
 		value = reflect.ValueOf(value.Interface())
@@ -73,13 +72,11 @@ func walk(value reflect.Value) (rj reflectJSON) {
 		for i := 0; i < value.Len(); i++ {
 			member := walk(value.Index(i))
 			member.Order = i
-			rj.Fields = makeFields(rj.Fields)
 			rj.Fields[fmt.Sprintf("%d", i)] = member
 		}
 	case reflect.Ptr:
 		typeOfV := value.Type()
 		rj.Type = typeOfV.String()
-		rj.Fields = makeFields(rj.Fields)
 		var member reflectJSON
 		if check, ok := ptrList[value]; ok && check {
 			member = walk(reflect.ValueOf("cycle loop:" + fmt.Sprintf("%x", value.Pointer())))
@@ -146,12 +143,12 @@ func reflectStruct(v reflect.Value) (rj reflectJSON) {
 
 func reflectMap(v reflect.Value) (rj reflectJSON) {
 	defer panicRecover(&rj)
+	rj.Fields = makeFields(rj.Fields)
 
 
 	t := v.Type()
 	rj.Type = t.String()
 	rj.Kind = v.Kind().String()
-	rj.Fields = makeFields(rj.Fields)
 
 	for i, key := range v.MapKeys() {
 		var member reflectJSON

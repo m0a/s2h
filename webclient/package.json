@@ -1,11 +1,11 @@
 {
-  "name": "web-client",
+  "name": "webclient",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "parcel index.html",
-    "build": "parcel build index.html -d build",
+    "start": "rm -rf dist/ && parcel test_index.html",
+    "build": "rm -rf build/ && parcel build index.html -d build",
     "jest": "echo \"Error: no test specified\" && exit 1"
   },
   "jest": {
@@ -15,8 +15,8 @@
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
     "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"]
   },
-  "author": "",
-  "license": "ISC",
+  "author": "m0a",
+  "license": "MIT",
   "devDependencies": {
     "babel-preset-env": "1.6.1",
     "node-sass": "4.7.2",

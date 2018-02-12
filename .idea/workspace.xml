@@ -1,9 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2ae89301-3bd3-4302-967c-d990e187a3b5" name="Default" comment="">
+    <list default="true" id="2ae89301-3bd3-4302-967c-d990e187a3b5" name="Default" comment="refactor codes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/web-client/test.json" afterPath="$PROJECT_DIR$/web-client/test.json" />
+      <change beforePath="$PROJECT_DIR$/reflect2json/reflect2json.go" afterPath="$PROJECT_DIR$/reflect2json/reflect2json.go" />
+      <change beforePath="$PROJECT_DIR$/s2h.go" afterPath="$PROJECT_DIR$/s2h.go" />
+      <change beforePath="$PROJECT_DIR$/web-client/.gitignore" afterPath="$PROJECT_DIR$/webclient/.gitignore" />
+      <change beforePath="$PROJECT_DIR$/web-client/.vscode/settings.json" afterPath="$PROJECT_DIR$/webclient/.vscode/settings.json" />
+      <change beforePath="$PROJECT_DIR$/web-client/goreflect.ts" afterPath="$PROJECT_DIR$/webclient/goreflect.ts" />
+      <change beforePath="$PROJECT_DIR$/web-client/index.html" afterPath="$PROJECT_DIR$/webclient/index.html" />
+      <change beforePath="$PROJECT_DIR$/web-client/index.scss" afterPath="$PROJECT_DIR$/webclient/index.scss" />
+      <change beforePath="$PROJECT_DIR$/web-client/index.tsx" afterPath="$PROJECT_DIR$/webclient/index.tsx" />
+      <change beforePath="$PROJECT_DIR$/web-client/json.js" afterPath="$PROJECT_DIR$/webclient/json.js" />
+      <change beforePath="$PROJECT_DIR$/web-client/mytypes/@hyperapp/router.d.ts" afterPath="$PROJECT_DIR$/webclient/mytypes/@hyperapp/router.d.ts" />
+      <change beforePath="$PROJECT_DIR$/web-client/package-lock.json" afterPath="$PROJECT_DIR$/webclient/package-lock.json" />
+      <change beforePath="$PROJECT_DIR$/web-client/package.json" afterPath="$PROJECT_DIR$/webclient/package.json" />
+      <change beforePath="$PROJECT_DIR$/web-client/test.json" afterPath="$PROJECT_DIR$/webclient/test.json" />
+      <change beforePath="$PROJECT_DIR$/web-client/tsconfig.json" afterPath="$PROJECT_DIR$/webclient/tsconfig.json" />
+      <change beforePath="$PROJECT_DIR$/web-client/yarn.lock" afterPath="$PROJECT_DIR$/webclient/yarn.lock" />
+      <change beforePath="$PROJECT_DIR$/webclient/route_test.tsx" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/webclient/sample.tsx" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/webclient/sample2.tsx" afterPath="" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -14,11 +31,103 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="reflect2json.go" pinned="false" current-in-tab="true">
+      <file leaf-file-name="reflect2json.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/reflect2json/reflect2json.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="5" lean-forward="false" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+            <state relative-caret-position="824">
+              <caret line="60" column="37" lean-forward="true" selection-start-line="60" selection-start-column="37" selection-end-line="60" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.tpl" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/index.tpl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="s2h.go" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/s2h.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="288">
+              <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+              <folding>
+                <element signature="e#13#98#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/index.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-8584">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fs.go" pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/Cellar/go/1.9.4/libexec/src/net/http/fs.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-3195">
+              <caret line="543" column="47" lean-forward="false" selection-start-line="543" selection-start-column="45" selection-end-line="543" selection-end-column="47" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="template.go" pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/Cellar/go/1.9.4/libexec/src/html/template/template.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="547">
+              <caret line="183" column="19" lean-forward="false" selection-start-line="183" selection-start-column="19" selection-end-line="183" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="static.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="446">
+              <caret line="137" column="24" lean-forward="false" selection-start-line="137" selection-start-column="15" selection-end-line="137" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webclient/build/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="174" lean-forward="false" selection-start-line="0" selection-start-column="174" selection-end-line="0" selection-end-column="174" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Makefile" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Makefile">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="216">
+              <caret line="12" column="25" lean-forward="false" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -41,6 +150,11 @@
       <find>valueInterface</find>
       <find>reflect2json.ReflectJSON{Order:0, Type:&quot;&quot;, kind:&quot;int&quot;, Value:&quot;2&quot;, Fields:map[string]reflect2json.ReflectJSON(nil)}</find>
       <find>Fields</find>
+      <find>build</find>
+      <find>makeFields</find>
+      <find>Open</find>
+      <find>FS</find>
+      <find>_escLocal</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -60,12 +174,14 @@
         <option value="$PROJECT_DIR$/printer.go" />
         <option value="$PROJECT_DIR$/struct2json/struct2json.go" />
         <option value="$PROJECT_DIR$/struct2json/struct2json_test.go" />
-        <option value="$PROJECT_DIR$/s2h.go" />
         <option value="$PROJECT_DIR$/CHANGELOG.md" />
         <option value="$PROJECT_DIR$/reflect2json/reflect2json_test.go" />
         <option value="$PROJECT_DIR$/web-client/test.json" />
         <option value="$PROJECT_DIR$/web-client/index.tsx" />
+        <option value="$PROJECT_DIR$/Makefile" />
         <option value="$PROJECT_DIR$/reflect2json/reflect2json.go" />
+        <option value="$PROJECT_DIR$/static/index.tpl" />
+        <option value="$PROJECT_DIR$/s2h.go" />
       </list>
     </option>
   </component>
@@ -76,13 +192,13 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="NodeModulesDirectoryManager">
-    <handled-path value="$PROJECT_DIR$/web-client/node_modules" />
+    <handled-path value="$PROJECT_DIR$/webclient/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-277" />
-    <option name="y" value="-1072" />
+    <option name="x" value="52" />
+    <option name="y" value="-1250" />
     <option name="width" value="2441" />
-    <option name="height" value="1023" />
+    <option name="height" value="1378" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -128,22 +244,6 @@
             <path>
               <item name="s2h" type="b2602c69:ProjectViewProjectNode" />
               <item name="s2h" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="s2h" type="b2602c69:ProjectViewProjectNode" />
-              <item name="s2h" type="462c0819:PsiDirectoryNode" />
-              <item name="reflect2json" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="s2h" type="b2602c69:ProjectViewProjectNode" />
-              <item name="s2h" type="462c0819:PsiDirectoryNode" />
-              <item name="web-client" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="s2h" type="b2602c69:ProjectViewProjectNode" />
-              <item name="s2h" type="462c0819:PsiDirectoryNode" />
-              <item name="web-client" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -279,15 +379,15 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-277" y="-1072" width="2441" height="1023" extended-state="0" />
+    <frame x="52" y="-1250" width="2441" height="1378" extended-state="0" />
     <layout>
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11265875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17206062" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2723449" sideWeight="0.50143385" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32912722" sideWeight="0.49761903" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2723449" sideWeight="0.49856615" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3284839" sideWeight="0.49761903" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2723449" sideWeight="0.49856615" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -316,7 +416,8 @@
     <MESSAGE value="fix: interfaceがkindとしてでてきてしまう問題に対応(2)" />
     <MESSAGE value="refact: Members =&gt; Fields" />
     <MESSAGE value="fix: when panic add error info to value, kind=invalid" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: when panic add error info to value, kind=invalid" />
+    <MESSAGE value="refactor codes" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor codes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -328,7 +429,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/reflect2json/reflect2json.go</url>
-          <line>141</line>
+          <line>152</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
@@ -426,7 +527,7 @@
         <state relative-caret-position="252">
           <caret line="20" column="4" lean-forward="false" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
           <folding>
-            <element signature="e#13#99#0" expanded="false" />
+            <element signature="e#13#98#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -471,14 +572,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/Cellar/go/1.9.4/libexec/src/encoding/json/encode.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="158" column="5" lean-forward="false" selection-start-line="158" selection-start-column="5" selection-end-line="158" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/color_test.go" />
     <entry file="file:///usr/local/Cellar/go/1.9.4/libexec/src/sync/pool.go">
       <provider selected="true" editor-type-id="text-editor">
@@ -514,7 +607,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/struct2json/struct2json.go" />
     <entry file="file://$PROJECT_DIR$/CHANGELOG.md" />
-    <entry file="file://$PROJECT_DIR$/web-client/json.js">
+    <entry file="file://$PROJECT_DIR$/webclient/json.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="36">
           <caret line="2" column="0" lean-forward="true" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
@@ -559,21 +652,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web-client/test.json">
+    <entry file="file://$PROJECT_DIR$/webclient/test.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
           <caret line="0" column="488546" lean-forward="false" selection-start-line="0" selection-start-column="488546" selection-end-line="0" selection-end-column="488546" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/s2h.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="20" column="4" lean-forward="false" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
-          <folding>
-            <element signature="e#13#99#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -585,15 +668,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/reflect2json/reflect2json_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="22" column="33" lean-forward="false" selection-start-line="22" selection-start-column="33" selection-end-line="22" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-client/goreflect.ts">
+    <entry file="file://$PROJECT_DIR$/webclient/goreflect.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -601,7 +676,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web-client/index.tsx">
+    <entry file="file://$PROJECT_DIR$/webclient/index.tsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="12" column="15" lean-forward="false" selection-start-line="12" selection-start-column="15" selection-end-line="12" selection-end-column="15" />
@@ -611,11 +686,130 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/reflect2json/reflect2json_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="22" column="33" lean-forward="false" selection-start-line="22" selection-start-column="33" selection-end-line="22" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/Cellar/go/1.9.4/libexec/src/os/file_unix.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="267" column="5" lean-forward="false" selection-start-line="267" selection-start-column="5" selection-end-line="267" selection-end-column="5" />
+          <folding>
+            <element signature="e#242#291#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/Cellar/go/1.9.4/libexec/src/encoding/json/encode.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="427">
+          <caret line="158" column="5" lean-forward="false" selection-start-line="158" selection-start-column="5" selection-end-line="158" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/reflect2json/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="0">
+            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webclient/build/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="174" lean-forward="false" selection-start-line="0" selection-start-column="174" selection-end-line="0" selection-end-column="174" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/Cellar/go/1.9.4/libexec/src/html/template/template.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="547">
+          <caret line="183" column="19" lean-forward="false" selection-start-line="183" selection-start-column="19" selection-end-line="183" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/reflect2json/reflect2json.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="5" lean-forward="false" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+        <state relative-caret-position="824">
+          <caret line="60" column="37" lean-forward="true" selection-start-line="60" selection-start-column="37" selection-end-line="60" selection-end-column="37" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/Cellar/go/1.9.4/libexec/src/io/io.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2113">
+          <caret line="238" column="5" lean-forward="false" selection-start-line="238" selection-start-column="5" selection-end-line="238" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/Cellar/go/1.9.4/libexec/src/net/http/fs.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3195">
+          <caret line="543" column="47" lean-forward="false" selection-start-line="543" selection-start-column="45" selection-end-line="543" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/index.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-8584">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="12" column="25" lean-forward="false" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/index.tpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="446">
+          <caret line="137" column="24" lean-forward="false" selection-start-line="137" selection-start-column="15" selection-end-line="137" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/s2h.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding>
+            <element signature="e#13#98#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
