@@ -4,6 +4,7 @@ import {
   location,
   LocationState,
   LocationActions,
+  RenderProps,
   Route
 } from "@hyperapp/router";
 
@@ -16,34 +17,31 @@ interface ReflectViewProps {
   reflect: GoReflect;
 }
 
-const ReflectPTRView = (props: ReflectViewProps) => (
+const ReflectPTRView = (props: RenderProps<{ id: string }>) => (
   <div>
-    <p>loc: {props.location.pathname}</p>
-    <p>prev: {props.location.previous}</p>
-    <p>ptr:{props.reflect.value && props.reflect.value}</p>
-    <pre>{props.reflect.fields["0"].kind}</pre>
-
-    <Link to={`${props.location.pathname}field0`}>
-      link: {`${props.location.pathname}field0`}
+    <p>ptr:{json.value && json.value}</p>
+    <pre>{json.fields["0"].kind}</pre>
+    <Link to={`${props.location.pathname}0`}>
+      link: {`${props.location.pathname}0`}
     </Link>
   </div>
 );
 
-const ReflectDefaultView = (props: ReflectViewProps) => (
+const ReflectDefaultView = (props: RenderProps<{ id: string }>) => (
   <div>
     <p>loc: {props.location.pathname}</p>
     <p>prev: {props.location.previous}</p>
-    <p> kind:{props.reflect.kind}</p>
-    <p> value:{props.reflect.value && props.reflect.value}</p>
-    <p> ptr/kind:{props.reflect.fields && props.reflect.fields["0"].kind}</p>
-    <pre>{JSON.stringify(props.reflect.fields["0"], undefined, " ")}</pre>
+    <p> kind:{json.kind}</p>
+    <p> value:{json.value && json.value}</p>
+    <p> ptr/kind:{json.fields && json.fields["0"].kind}</p>
+    <pre>{JSON.stringify(json.fields["0"], undefined, " ")}</pre>
   </div>
 );
 
-const ReflectView = (props: ReflectViewProps) => {
-  switch (props.reflect.kind) {
-    case "ptr":
-      return <ReflectPTRView {...props} />;
+const ReflectView = (props: RenderProps<any>) => {
+  switch (json.kind) {
+    // case "ptr":
+    //   return <ReflectPTRView {...props} />;
     default:
       return <ReflectDefaultView {...props} />;
   }
@@ -89,10 +87,8 @@ const routeActions: ActionsType<RouteState, RouteActions> = {
 };
 const view: View<RouteState, RouteActions> = (state: RouteState) => (
   <div>
-    <ReflectView reflect={json} location={state.location} />
-    <Route path="/" render={Home} />
+    <Route parent path="/" render={ReflectView} />
     <Route path="/about" render={About} />
-    <Route parent path="/topics" render={TopicsView} />
   </div>
 );
 

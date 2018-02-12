@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2ae89301-3bd3-4302-967c-d990e187a3b5" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/reflect2json/reflect2json.go" afterPath="$PROJECT_DIR$/reflect2json/reflect2json.go" />
-      <change beforePath="$PROJECT_DIR$/web-client/index.html" afterPath="$PROJECT_DIR$/web-client/index.html" />
-      <change beforePath="$PROJECT_DIR$/web-client/index.tsx" afterPath="$PROJECT_DIR$/web-client/index.tsx" />
-      <change beforePath="$PROJECT_DIR$/web-client/mytypes/@hyperapp/router.d.ts" afterPath="$PROJECT_DIR$/web-client/mytypes/@hyperapp/router.d.ts" />
-      <change beforePath="$PROJECT_DIR$/web-client/route_test.tsx" afterPath="$PROJECT_DIR$/web-client/route_test.tsx" />
-      <change beforePath="$PROJECT_DIR$/web-client/test.json" afterPath="$PROJECT_DIR$/web-client/test.json" />
-    </list>
+    <list default="true" id="2ae89301-3bd3-4302-967c-d990e187a3b5" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -314,10 +307,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-127" y="-1192" width="2441" height="1023" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11265875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11265875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2723449" sideWeight="0.50143385" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />

@@ -3,7 +3,7 @@ import { VNode } from "hyperapp";
 /** Link */
 interface LinkProps {
   to: string;
-  location?: Location;
+  location?: LocationState;
 }
 export function Link(props: LinkProps): VNode<LinkProps>;
 
@@ -15,7 +15,7 @@ interface Match<P> {
   params: P;
 }
 interface RenderProps<P> {
-  location: Location;
+  location: LocationState;
   match: Match<P>;
 }
 
