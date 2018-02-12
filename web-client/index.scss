@@ -1,0 +1,43 @@
+// 1.初期変数をインポートする
+
+// @import "node_modules/bulma/sass/utilities/initial-variables";
+// @import "node_modules/bulma/sass/utilities/functions";
+
+// // 2.独自の初期変数を設定する
+
+// //青を更新する
+// $blue: #72d0eb;
+// // ピンクとその反転を加える
+// $pink: #ffb3b3;
+// $pink-invert: #fff;
+// // serifファミリーを追加する
+// $family-serif: "Merriweather", "Georgia", serif;
+
+// // 3.派生変数を設定する
+// // 原色として新しいピンクを使用する
+// $primary: $pink;
+// $primary-invert: $pink-invert;
+// // 危険色として既存のオレンジを使用する
+// $danger: $orange;
+// // 新しいserifファミリーを使用する
+// $family-primary: $family-serif;
+
+// // 4.カスタムカラーの設定
+// $linkedin: #0077b5;
+// $linkedin-invert: findColorInvert($linkedin);
+// $twitter: #55acee;
+// $twitter-invert: findColorInvert($twitter);
+// $github: #333;
+// $github-invert: findColorInvert($github);
+
+// // 5.新しいカラー変数をカラーマップに追加します。
+// @import "node_modules/bulma/sass/utilities/derived-variables.sass";
+// $addColors: (
+//   "twitter":($twitter, $twitter-invert),
+//   "linkedin": ($linkedin, $linkedin-invert),
+//   "github": ($github, $github-invert)
+// );
+// $colors: map-merge($colors, $addColors);
+
+// 6. Bulmaの残りの部分をインポートする
+@import "node_modules/bulma/bulma";
