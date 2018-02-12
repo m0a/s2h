@@ -1,7 +1,8 @@
-import { h, app, View, ActionType } from "hyperapp";
+import { h, app, View, ActionsType } from "hyperapp";
 import {
   Link,
   Route,
+  RenderProps,
   location,
   LocationActions,
   LocationState
@@ -9,8 +10,10 @@ import {
 
 const Home = () => <h2>Home</h2>;
 const About = () => <h2>About</h2>;
-const Topic = ({ match }: { match: any }) => <h3>{match.params.topicId}</h3>;
-const TopicsView = ({ match }: { match: any }) => (
+const Topic = ({ match }: RenderProps<{ topicId: string }>) => (
+  <h3>{match.params.topicId}</h3>
+);
+const TopicsView = ({ match }: RenderProps<{ topicId: string }>) => (
   <div>
     <h2>Topics</h2>
     <ul>

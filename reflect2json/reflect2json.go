@@ -10,7 +10,7 @@ type ReflectJSON struct {
 	Type   string                 `json:"type,omitempty"`
 	Kind   string                 `json:"kind"`
 	Value  string                 `json:"value,omitempty"`
-	Fields map[string]ReflectJSON `json:"fileds,omitempty"`
+	Fields map[string]ReflectJSON `json:"fields,omitempty"`
 }
 
 func makeMembers(members map[string]ReflectJSON) map[string]ReflectJSON {
